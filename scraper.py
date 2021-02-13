@@ -22,6 +22,8 @@ class Bot():
         if headless:
             options.add_argument("--headless")
         #options.add_argument("--window-size=1920x1080")
+        options.add_argument('--ignore-certificate-errors')
+        options.add_argument('--ignore-ssl-errors')
         self.driver = webdriver.Chrome(chrome_options=options)			# create webdriver
         self.verbose = verbose
 
@@ -92,16 +94,15 @@ def discussion_link(forums, total_pages, element_class):
 
 def discussion_content(forums, question_links):
 
+    sleepTimes = [1.1, 1.5, 2]
+    
     for i in range(len(forums)):
 
         for j in range(len(question_links[i])):
             page = f'/page{j+1}'
             page = question_links[i][j] + page
             bot.driver.get(page)
-
-
-
-
+            sleep(random.choice(sleepTimes))
 
     return
 
